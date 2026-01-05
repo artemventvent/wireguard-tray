@@ -1,5 +1,5 @@
 pkgname=wireguard-tray
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="Minimal tray GUI to manage WireGuard connections on Linux"
 arch=('any')
@@ -13,7 +13,7 @@ source=(
     "wireguard-tray.desktop"
     "wireguard-tray.service"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('aeb3197ff00b269f907e3d776c53d44bf66a2818307acd05049e7f370b9503b8')
 install="wireguard-tray.install"
 
 package() {
