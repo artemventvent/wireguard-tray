@@ -36,7 +36,7 @@ paru -S wireguard-tray
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/wireguard-tray.git
+   git clone https://github.com/artemventvent/wireguard-tray.git
    cd wireguard-tray
    ```
 

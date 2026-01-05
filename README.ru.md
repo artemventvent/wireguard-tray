@@ -36,7 +36,7 @@ paru -S wireguard-tray
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/ваш_username/wireguard-tray.git
+   git clone https://github.com/artemventvent/wireguard-tray.git
    cd wireguard-tray
    ```
 
