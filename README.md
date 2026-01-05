@@ -1,78 +1,229 @@
 # WireGuard Tray
 
-![Python](https://img.shields.io/badge/Made_with-Python-blue?logo=python)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Platform](https://img.shields.io/badge/Linux-ready-brightgreen?logo=linux)
-![Status](https://img.shields.io/badge/Status-Active-blue)
+[![English](https://img.shields.io/badge/lang-English-blue)](README.md)
+[![Russian](https://img.shields.io/badge/lang-Русский-red)](README.ru.md)
 
-> A minimalist tray-based GUI to manage WireGuard connections on Linux.
+A lightweight system tray application for managing WireGuard VPN connections on Linux.
 
----
+## Features
 
-## ✅ Features
+- 📌 **System tray integration** - Easy access from your desktop panel
+- 🔄 **One-click connect/disconnect** - Toggle VPN with a single click
+- 🎯 **Multiple interface support** - Switch between different WireGuard configurations
+- 🔔 **Desktop notifications** - Get notified about connection status changes
+- ⚡ **Quick CLI access** - Command-line interface for automation
+- 🔧 **Sudoers auto-setup** - Easy configuration for passwordless VPN management
+- 🚀 **Systemd autostart** - Launch at system startup
 
-- One-click connect/disconnect WireGuard interfaces
-- Auto-selection of the last used interface
-- Browse and select any `.conf` file from `/etc/wireguard`
-- Desktop notifications using `notify-send`
-- Lightweight and efficient
+## Screenshots
 
----
+![Tray Icon](icon-on.png) *Active connection*
+![Tray Icon](icon-off.png) *Inactive connection*
 
-## 📦 Dependencies
+## Installation
 
-```bash
-# Arch-based
-sudo pacman -S wireguard-tools
-
-# Debian/Ubuntu
-sudo apt install wireguard 
-```
-
----
-
-## 🚀 Installation
+### From AUR (Arch Linux)
 
 ```bash
-git clone https://github.com/artemventvent/wireguardGuiV2.git
-cd wireguardGuiV2
-chmod +x tray.py
-./tray.py
+# Using yay
+yay -S wireguard-tray
+
+# Using paru
+paru -S wireguard-tray
 ```
 
----
+### Manual Installation
 
-## 🔐 Passwordless Sudo Configuration
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/wireguard-tray.git
+   cd wireguard-tray
+   ```
 
-To avoid being prompted for a password on every operation:
+2. Build and install:
+   ```bash
+   makepkg -si
+   ```
 
-### 1. Grant access to the configuration directory:
+## Configuration
+
+### 1. Sudoers Setup
+
+To run WireGuard without entering password each time:
 
 ```bash
-sudo chmod 775 /etc/wireguard
-sudo chown $USER:root /etc/wireguard
+sudo wireguard-tray --sudo-setup
 ```
 
-### 2. Add rules to sudoers (run `sudo visudo`):
+This will create `/etc/sudoers.d/wireguard-tray` with appropriate permissions.
+
+### 2. WireGuard Configuration
+
+Place your WireGuard configuration files in `/etc/wireguard/`:
+```bash
+sudo nano /etc/wireguard/wg0.conf
+```
+
+Example configuration:
+```ini
+[Interface]
+PrivateKey = YOUR_PRIVATE_KEY
+Address = 10.0.0.2/24
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = SERVER_PUBLIC_KEY
+AllowedIPs = 0.0.0.0/0
+Endpoint = vpn.server.com:51820
+```
+
+### 3. Autostart (Optional)
+
+Enable automatic startup with systemd:
+```bash
+wireguard-tray --autostart
+```
+
+Disable autostart:
+```bash
+wireguard-tray --disable-autostart
+```
+
+## Usage
+
+### Graphical Interface
+
+1. Launch the application:
+   ```bash
+   wireguard-tray
+   ```
+
+2. Click the tray icon to see the menu:
+   - **VPN** checkbox - Toggle connection on/off
+   - **Interface** - Select WireGuard configuration
+   - **Exit** - Quit the application
+
+### Command Line Interface
 
 ```bash
-username ALL=(ALL) NOPASSWD: /usr/bin/wg-quick, /usr/bin/wg
-username ALL=(ALL) NOPASSWD: /usr/bin/wg*, /usr/bin/wireguard*
+# Show help
+wireguard-tray --help
+
+# Connect to specific interface
+wireguard-tray --up wg0
+
+# Disconnect current interface
+wireguard-tray --down
+
+# Set default interface
+wireguard-tray --set wg1
+
+# Enable autostart
+wireguard-tray --autostart
+
+# Disable autostart
+wireguard-tray --disable-autostart
+
+# Setup sudoers (run with sudo)
+sudo wireguard-tray --sudo-setup
+
+# Show version
+wireguard-tray --version
 ```
 
-Replace `username` with your actual Linux username.
+## Project Structure
+
+```
+wireguard-tray/
+├── tray.py                    # Main application script
+├── icon-on.png               # Active connection icon
+├── icon-off.png              # Inactive connection icon
+├── wireguard-tray.desktop   # Desktop entry
+├── wireguard-tray.service   # Systemd service file
+├── wireguard-tray.install   # Post-installation script
+├── PKGBUILD                 # Arch Linux package build file
+└── README.md                # This file
+```
+
+## Dependencies
+
+- **Python 3.x**
+- **GTK 3** and Python bindings
+- **libappindicator** for system tray integration
+- **WireGuard Tools** (`wg-quick`)
+- **libnotify** for desktop notifications
+
+Install dependencies on Arch Linux:
+```bash
+sudo pacman -S python python-gobject gtk3 libappindicator-gtk3 wireguard-tools libnotify
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"Permission denied" when connecting**
+   ```bash
+   sudo wireguard-tray --sudo-setup
+   ```
+
+2. **No interfaces found in menu**
+   Ensure WireGuard configs are in `/etc/wireguard/` with `.conf` extension:
+   ```bash
+   sudo chmod 755 /etc/wireguard/
+   ls -la /etc/wireguard/*.conf
+   ```
+
+3. **Tray icon not showing**
+   Check if your desktop environment supports AppIndicator:
+   ```bash
+   # For KDE Plasma
+   sudo pacman -S plasma5-applets-appindicator
+   
+   # For GNOME
+   sudo pacman -S gnome-shell-extension-appindicator
+   ```
+
+4. **Notifications not working**
+   Ensure notification daemon is running:
+   ```bash
+   systemctl --user status dunst  # or whatever notification daemon you use
+   ```
+
+### Debug Mode
+
+Run with verbose output:
+```bash
+python3 tray.py
+```
+
+Check systemd logs:
+```bash
+journalctl --user -u wireguard-tray -f
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -am 'Add feature'`
+4. Push to branch: `git push origin feature-name`
+5. Submit a Pull Request
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/wireguard-tray/issues)
+- **Email**: your.email@example.com
+
+## Acknowledgments
+
+- WireGuard® is a registered trademark of Jason A. Donenfeld
+- Icons made by [Freepik](https://www.flaticon.com) from [Flaticon](https://www.flaticon.com)
 
 ---
 
-## 🖼️ Icons
-
-Icons should be placed in `~/wireguardGuiV2/`:
-
-- `iconWireguard.png` — inactive state
-- `iconWireguardON.png` — active state
-
-You can change the icon path directly in `tray.py` if needed.
-
----
-
-> Simple and effective WireGuard control from your system tray.
+**Note**: This application is not officially affiliated with the WireGuard project.
