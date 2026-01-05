@@ -1,4 +1,3 @@
-# Maintainer: Artem Ventvent <ваш_email@example.com>
 pkgname=wireguard-tray
 pkgver=1.0.1
 pkgrel=1
