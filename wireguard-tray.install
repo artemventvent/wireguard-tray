@@ -1,0 +1,9 @@
+post_install() {
+    echo "================================================="
+    echo "WireGuard Tray installed!"
+    echo "Enable autostart with systemd --user:"
+    echo "  systemctl --user enable --now wireguard-tray.service"
+    echo "Ensure sudoers are configured for wg-quick:"
+    echo "  user ALL=(root) NOPASSWD: /usr/bin/wg-quick"
+    echo "================================================="
+}

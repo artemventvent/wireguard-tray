@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=WireGuard Tray
+Comment=Tray app for WireGuard
+Exec=/usr/bin/wireguard-tray
+Icon=/usr/share/wireguard-tray/icons/icon-off.png
+Terminal=false
+X-GNOME-Autostart-enabled=true

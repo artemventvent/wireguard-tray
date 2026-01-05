@@ -1,0 +1,14 @@
+[Unit]
+Description=WireGuard Tray App
+After=graphical.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wireguard-tray
+Restart=on-failure
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=%h/.Xauthority
+
+[Install]
+WantedBy=default.target
