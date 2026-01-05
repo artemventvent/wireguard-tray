@@ -202,27 +202,9 @@ python3 tray.py
 journalctl --user -u wireguard-tray -f
 ```
 
-## Вклад в проект
-
-1. Форкните репозиторий
-2. Создайте ветку для функции: `git checkout -b имя-функции`
-3. Зафиксируйте изменения: `git commit -am 'Добавлена функция'`
-4. Запушьте в ветку: `git push origin имя-функции`
-5. Создайте Pull Request
-
 ## Лицензия
 
 MIT License - смотрите файл [LICENSE](LICENSE) для подробностей.
-
-## Поддержка
-
-- **Issues**: [GitHub Issues](https://github.com/ваш_username/wireguard-tray/issues)
-- **Email**: ваш.email@example.com
-
-## Благодарности
-
-- WireGuard® является зарегистрированной торговой маркой Jason A. Donenfeld
-- Иконки сделаны [Freepik](https://www.flaticon.com) с [Flaticon](https://www.flaticon.com)
 
 ---
 

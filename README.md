@@ -202,27 +202,9 @@ Check systemd logs:
 journalctl --user -u wireguard-tray -f
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -am 'Add feature'`
-4. Push to branch: `git push origin feature-name`
-5. Submit a Pull Request
-
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/wireguard-tray/issues)
-- **Email**: your.email@example.com
-
-## Acknowledgments
-
-- WireGuard® is a registered trademark of Jason A. Donenfeld
-- Icons made by [Freepik](https://www.flaticon.com) from [Flaticon](https://www.flaticon.com)
 
 ---
 
